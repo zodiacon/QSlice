@@ -1,0 +1,19 @@
+﻿<metro:MetroWindow x:Class="QSlice.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QSlice"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d"
+        xmlns:view="clr-namespace:QSlice.Views"
+        Title="QSlice" MinHeight="300" SizeToContent="Width" ResizeMode="CanResize" 
+                   TitleCaps="False" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <view:QSliceView Grid.Row="1" DataContext="{Binding QSliceViewModel}" />
+    </Grid>
+</metro:MetroWindow>
