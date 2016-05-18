@@ -17,23 +17,21 @@ namespace QSlice.ViewModels {
         List<Process> _processesRaw;
 
         static ProcessEqualityComparer ProcessComparer = new ProcessEqualityComparer();
-        static ProcessViewModelEqualityComparer ProcessComparer2 = new ProcessViewModelEqualityComparer();
 
         public IList<ProcessViewModel> Processes => _processes;
 
         public QSliceViewModel() {
-            //Process.EnterDebugMode();
-
             InitProcesses();
             StartTimer();
         }
 
+        ICollectionView _view;
 
         private void InitProcesses() {
             _processesRaw = Process.GetProcesses().Where(p => p.Id != 0).ToList();
             _processes = new ObservableCollection<ProcessViewModel>(_processesRaw.Select(p => new ProcessViewModel(p)));
 
-            var liveView = CollectionViewSource.GetDefaultView(_processes) as ICollectionViewLiveShaping;
+            var liveView = (_view = CollectionViewSource.GetDefaultView(_processes)) as ICollectionViewLiveShaping;
             liveView.IsLiveSorting = true;
         }
 
@@ -52,6 +50,9 @@ namespace QSlice.ViewModels {
             if(_timer == null) {
                 _timer = new DispatcherTimer(TimeSpan.FromMilliseconds(Interval), DispatcherPriority.Normal, delegate {
                     _timer.Stop();
+
+                    // find out what processes have terminated and born
+
                     var processes = Process.GetProcesses().Where(p => p.Id != 0).ToArray();
                     var oldProcesses = _processesRaw.Except(processes, ProcessComparer).ToArray();
                     var newProcesses = processes.Except(_processesRaw, ProcessComparer).ToArray();
@@ -70,7 +71,9 @@ namespace QSlice.ViewModels {
                         process.Update();
                     }
 
-                    CollectionViewSource.GetDefaultView(_processes).Refresh();
+                    // due to bug in live shaping
+
+                    _view.Refresh();
 
                     _timer.Start();
                 }, Dispatcher.CurrentDispatcher);

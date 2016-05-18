@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Processes}" VirtualizingPanel.IsVirtualizing="True" 
-              RowHeight="20" FontSize="11"
+              RowHeight="20" FontSize="11" SelectionMode="Single"
               GridLinesVisibility="Horizontal">
         <DataGrid.Columns>
             <DataGridTextColumn Header="ID" Binding="{Binding Process.Id}" Width="50" />
