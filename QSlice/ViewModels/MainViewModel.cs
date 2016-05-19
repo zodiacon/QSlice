@@ -8,5 +8,17 @@ namespace QSlice.ViewModels {
         public MainViewModel() {
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
         }
+
+		private string _searchText;
+
+		public string SearchText {
+			get { return _searchText; }
+			set {
+				if(SetProperty(ref _searchText, value)) {
+					QSliceViewModel.SetSearchText(value);
+				}
+			}
+		}
+
 	}
 }

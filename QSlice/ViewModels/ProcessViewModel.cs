@@ -29,6 +29,9 @@ namespace QSlice.ViewModels {
 		public float UserCPU => _userTime;
 		public float TotalCPU => _totalTime;
 
+		string _lowerName;
+		public string LowerName => _lowerName ?? (_lowerName = Process.ProcessName.ToLower());
+
 		public void Update() {
 			Process.Refresh();
 

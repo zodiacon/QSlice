@@ -9,11 +9,16 @@
         xmlns:view="clr-namespace:QSlice.Views"
         Title="QSlice" MinHeight="300" SizeToContent="Width" ResizeMode="CanResize" 
                    TitleCaps="False" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1">
-    <Grid>
+    <Grid Margin="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <view:QSliceView Grid.Row="1" DataContext="{Binding QSliceViewModel}" />
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Search:" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding SearchText, Delay=500, UpdateSourceTrigger=PropertyChanged}" Width="200" metro:TextBoxHelper.ClearTextButton="True" 
+                     metro:TextBoxHelper.Watermark="Type to search processes" Margin="6,0,0,0" />
+        </StackPanel>
+        <view:QSliceView Margin="0,6" Grid.Row="1" DataContext="{Binding QSliceViewModel}" />
     </Grid>
 </metro:MetroWindow>

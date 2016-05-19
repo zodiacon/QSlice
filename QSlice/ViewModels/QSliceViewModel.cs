@@ -46,6 +46,15 @@ namespace QSlice.ViewModels {
             }
         }
 
+		public void SetSearchText(string text) {
+			if(string.IsNullOrWhiteSpace(text))
+				_view.Filter = null;
+			else {
+				var ltext = text.ToLower();
+				_view.Filter = o => ((ProcessViewModel)o).LowerName.Contains(ltext);
+			}
+		}
+
         private void StartTimer() {
             if(_timer == null) {
                 _timer = new DispatcherTimer(TimeSpan.FromMilliseconds(Interval), DispatcherPriority.Normal, delegate {
