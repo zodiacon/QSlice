@@ -7,12 +7,13 @@
         xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         xmlns:view="clr-namespace:QSlice.Views"
-        Title="QSlice" MinHeight="300" SizeToContent="Width" ResizeMode="CanResize" Icon="/images/cpu_run.png"
+        Title="QSlice" MinHeight="300" SizeToContent="Width" ResizeMode="CanResizeWithGrip" Icon="/images/cpu_run.png"
                    TitleCaps="False" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1">
     <Grid Margin="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Search:" VerticalAlignment="Center"/>
@@ -20,5 +21,9 @@
                      metro:TextBoxHelper.Watermark="Type to search processes" Margin="6,0,0,0" />
         </StackPanel>
         <view:QSliceView Margin="0,6" Grid.Row="1" DataContext="{Binding QSliceViewModel}" />
+        <StatusBar Grid.Row="2" FontSize="12" DataContext="{Binding QSliceViewModel}">
+            <TextBlock Text="{Binding Processes.Count, StringFormat=Processes: \{0\}}" />
+            <TextBlock Text="{Binding TotalCPU, StringFormat=Total CPU: \{0:N2\} %}" Margin="10,0,0,0" />
+        </StatusBar>
     </Grid>
 </metro:MetroWindow>

@@ -76,9 +76,13 @@ namespace QSlice.ViewModels {
                         _processes.Add(new ProcessViewModel(p));
                     }
 
+                    float totalCpu = 0;
                     foreach(var process in _processes) {
                         process.Update();
+                        totalCpu += process.TotalCPU;
                     }
+
+                    TotalCPU = totalCpu;
 
                     // due to bug in live shaping
 
@@ -91,5 +95,13 @@ namespace QSlice.ViewModels {
                 _timer.Interval = TimeSpan.FromMilliseconds(Interval);
             }
         }
+
+        private float _totalCPU;
+
+        public float TotalCPU {
+            get { return _totalCPU; }
+            set { SetProperty(ref _totalCPU, value); }
+        }
+
     }
 }
