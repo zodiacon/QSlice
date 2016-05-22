@@ -5,12 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QSlice"
         xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
-        mc:Ignorable="d"
+        mc:Ignorable="d" x:Name="This"
         xmlns:view="clr-namespace:QSlice.Views"
         Title="QSlice" MinHeight="300" SizeToContent="Width" ResizeMode="CanResizeWithGrip" Icon="/images/cpu_run.png"
                    TitleCaps="False" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1">
     <metro:MetroWindow.RightWindowCommands>
         <metro:WindowCommands>
+            <ToggleButton Style="{StaticResource MetroToggleButton}" IsChecked="{Binding Topmost, ElementName=This}" ToolTip="Always On Top">
+                <Image Source="/Images/pin_orange.png" />
+            </ToggleButton>
             <metro:DropDownButton Content="Accent Color" ItemsSource="{Binding Accents}" >
                 <metro:DropDownButton.ItemContainerStyle>
                     <Style TargetType="MenuItem" BasedOn="{StaticResource MetroMenuItem}">
