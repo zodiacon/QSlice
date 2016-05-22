@@ -45,13 +45,13 @@ namespace QSlice.ViewModels {
 			set { SetProperty(ref _maxCount, value); }
 		}
 
-		private int _interval = 1000;
+		private int _interval;
 
         public int Interval {
             get { return _interval; }
             set {
                 if(SetProperty(ref _interval, value)) {
-                    StartTimer();
+					_timer.Interval = TimeSpan.FromMilliseconds(value);
                 }
             }
         }

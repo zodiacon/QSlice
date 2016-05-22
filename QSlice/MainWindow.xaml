@@ -45,7 +45,7 @@
             <TextBlock Margin="6,0,0,0" Text="Show" VerticalAlignment="Center" />
             <ComboBox Margin="4,0,0,0" ItemsSource="{Binding ShowNumbers}" SelectedItem="{Binding SelectedShowNumber, Mode=TwoWay}" Width="60" DisplayMemberPath="Text" />
             <TextBlock Margin="8,0,0,0" Text="Refresh Interval:" VerticalAlignment="Center" />
-            <ComboBox Margin="4,0,0,0" ItemsSource="{Binding RefreshIntervals}" SelectedIndex="{Binding SelectedIntervalIndex, Mode=TwoWay}" Width="60" DisplayMemberPath="Text"/>
+            <ComboBox Margin="4,0,0,0" ItemsSource="{Binding RefreshIntervals}" SelectedItem="{Binding SelectedInterval, Mode=TwoWay}" Width="70" DisplayMemberPath="Text"/>
             <Button Margin="6,0,0,0" Command="{Binding PlayPauseCommand}">
                 <Image Source="{Binding PlayPauseImage}" Width="16" Height="16 "/>
             </Button>

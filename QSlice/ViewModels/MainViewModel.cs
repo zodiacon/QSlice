@@ -20,6 +20,24 @@ namespace QSlice.ViewModels {
 			new SelectedShowNumber { Text = "50", Count = 50 },
 		};
 
+		public RefreshInterval[] RefreshIntervals { get; } = new[] {
+			new RefreshInterval { Text = "0.5 sec", Interval = 500 },
+			new RefreshInterval { Text = "1 sec", Interval = 1000 },
+			new RefreshInterval { Text = "2 sec", Interval = 2000 },
+			new RefreshInterval { Text = "5 sec", Interval = 5000 },
+		};
+
+		private RefreshInterval _selectedInterval;
+
+		public RefreshInterval SelectedInterval {
+			get { return _selectedInterval; }
+			set {
+				if(SetProperty(ref _selectedInterval, value)) {
+					QSliceViewModel.Interval = value.Interval;
+				}
+			}
+		}
+
 		private SelectedShowNumber _selectedShowNumber;
 
 		public SelectedShowNumber SelectedShowNumber {
@@ -34,6 +52,7 @@ namespace QSlice.ViewModels {
 		public MainViewModel() {
 			Thread.CurrentThread.Priority = ThreadPriority.Highest;
 			SelectedShowNumber = ShowNumbers[0];
+			SelectedInterval = RefreshIntervals[1];
 			LoadSettings();
 		}
 
