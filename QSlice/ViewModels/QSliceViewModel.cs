@@ -67,9 +67,7 @@ namespace QSlice.ViewModels {
 
         private void StartTimer() {
             if(_timer == null) {
-                _timer = new DispatcherTimer(TimeSpan.FromMilliseconds(Interval), DispatcherPriority.Normal, delegate {
-                    _timer.Stop();
-
+                _timer = new DispatcherTimer(TimeSpan.FromMilliseconds(Interval), DispatcherPriority.ApplicationIdle, delegate {
                     // find out what processes have terminated and born
 
                     var processes = Process.GetProcesses().Where(p => p.Id != 0).ToArray();
@@ -86,7 +84,7 @@ namespace QSlice.ViewModels {
                         _processes.Add(new ProcessViewModel(p));
                     }
 
-                    float totalCpu = 0;
+                    double totalCpu = 0;
                     foreach(var process in _processes) {
                         process.Update();
                         totalCpu += process.TotalCPU;
@@ -98,7 +96,6 @@ namespace QSlice.ViewModels {
 
                     _view.Refresh();
 
-                    _timer.Start();
                 }, Dispatcher.CurrentDispatcher);
             }
             else {
@@ -106,9 +103,9 @@ namespace QSlice.ViewModels {
             }
         }
 
-        private float _totalCPU;
+        private double _totalCPU;
 
-        public float TotalCPU {
+        public double TotalCPU {
             get { return _totalCPU; }
             set { SetProperty(ref _totalCPU, value); }
         }

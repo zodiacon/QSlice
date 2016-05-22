@@ -3,61 +3,69 @@ using System.Diagnostics;
 using Prism.Mvvm;
 
 namespace QSlice.ViewModels {
-    class ProcessViewModel : BindableBase {
-		TimeSpan _lastKernelTime, _lastUserTime, _lastTotalTime;
+    class ProcessViewModel : BindableBase, IDisposable {
+        long _lastKernelTime, _lastUserTime;
         int _lastUpdate;
+        IntPtr _handle;
 
         static int _processorCount = Environment.ProcessorCount;
 
-		public Process Process { get; }
+        public Process Process { get; }
 
-		public ProcessViewModel(Process process) {
-			Process = process;
-			try {
-				_lastKernelTime = process.PrivilegedProcessorTime;
-				_lastUserTime = process.UserProcessorTime;
-				_lastTotalTime = process.TotalProcessorTime;
-				_lastUpdate = Environment.TickCount;
-			}
-			catch(InvalidOperationException) {
-			}
-		}
+        public ProcessViewModel(Process process) {
+            Process = process;
+            _handle = Win32.OpenProcess(Win32.ProcessQueryLimitedProcessInformation, false, process.Id);
+            long dummy;
+            Win32.GetProcessTimes(_handle, out dummy, out dummy, out _lastKernelTime, out _lastUserTime);
 
-		float _kernelTime, _userTime, _totalTime;
+            _lastUpdate = Environment.TickCount;
+        }
 
-		public float KernelCPU => _kernelTime;
-		public float UserCPU => _userTime;
-		public float TotalCPU => _totalTime;
+        double _kernelTime, _userTime, _totalTime;
 
-		string _lowerName;
-		public string LowerName => _lowerName ?? (_lowerName = Process.ProcessName.ToLower());
+        public double KernelCPU => _kernelTime;
+        public double UserCPU => _userTime;
+        public double TotalCPU => _totalTime;
 
-		public void Update() {
-			Process.Refresh();
+        string _lowerName;
+        public string LowerName => _lowerName ?? (_lowerName = Process.ProcessName.ToLower());
+
+        public void Update() {
 
             var diff = Environment.TickCount - _lastUpdate;
-            if(diff == 0)
+            if (diff == 0)
                 return;
 
-            var factor = 100.0f / diff / _processorCount;
+            long dummy, user, kernel;
+            Win32.GetProcessTimes(_handle, out dummy, out dummy, out kernel, out user);
 
-            try {
-				_kernelTime = (float)(Process.PrivilegedProcessorTime.TotalMilliseconds - _lastKernelTime.TotalMilliseconds) * factor;
-				_userTime = (float)(Process.UserProcessorTime.TotalMilliseconds - _lastUserTime.TotalMilliseconds) * factor;
-				_totalTime = (float)(Process.TotalProcessorTime.TotalMilliseconds - _lastTotalTime.TotalMilliseconds) * factor;
+            var factor = (double)(diff * _processorCount * 100);
 
-				_lastKernelTime = Process.PrivilegedProcessorTime;
-				_lastUserTime = Process.UserProcessorTime;
-				_lastTotalTime = Process.TotalProcessorTime;
-				_lastUpdate = Environment.TickCount;
+            _kernelTime = (kernel - _lastKernelTime) / factor;
+            _userTime = (user - _lastUserTime) / factor;
+            _totalTime = _kernelTime + _userTime;
 
-                OnPropertyChanged(nameof(KernelCPU));
-                OnPropertyChanged(nameof(UserCPU));
-                OnPropertyChanged(nameof(TotalCPU));
-            }
-            catch {
-				_totalTime = _kernelTime = _userTime = 0;
-			}
-		}
-	}
+            _lastKernelTime = kernel;
+            _lastUserTime = user;
+            _lastUpdate = Environment.TickCount;
+
+            OnPropertyChanged(nameof(KernelCPU));
+            OnPropertyChanged(nameof(UserCPU));
+            OnPropertyChanged(nameof(TotalCPU));
+        }
+
+        void Dispose(bool disposing) {
+            if (disposing)
+                GC.SuppressFinalize(this);
+            Win32.CloseHandle(_handle);
+        }
+
+        public void Dispose() {
+            Dispose(true);
+        }
+
+        ~ProcessViewModel() {
+            Dispose(false);
+        }
+    }
 }
