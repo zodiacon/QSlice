@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -13,16 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QSlice.Views
-{
-    /// <summary>
-    /// Interaction logic for QSliceView.xaml
-    /// </summary>
-    public partial class QSliceView : UserControl
-    {
-        public QSliceView()
-        {
-            InitializeComponent();
-        }
-    }
+namespace QSlice.Views {
+	/// <summary>
+	/// Interaction logic for QSliceView.xaml
+	/// </summary>
+	public partial class QSliceView : UserControl {
+		public QSliceView() {
+			InitializeComponent();
+		}
+
+	}
 }

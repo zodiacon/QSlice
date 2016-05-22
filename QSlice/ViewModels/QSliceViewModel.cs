@@ -9,6 +9,8 @@ using System.Windows.Data;
 using System.ComponentModel;
 using Prism.Mvvm;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Prism.Commands;
 
 namespace QSlice.ViewModels {
     class QSliceViewModel : BindableBase {
@@ -27,15 +29,23 @@ namespace QSlice.ViewModels {
 
         ICollectionView _view;
 
-        private void InitProcesses() {
+		private void InitProcesses() {
             _processesRaw = Process.GetProcesses().Where(p => p.Id != 0).ToList();
             _processes = new ObservableCollection<ProcessViewModel>(_processesRaw.Select(p => new ProcessViewModel(p)));
 
             var liveView = (_view = CollectionViewSource.GetDefaultView(_processes)) as ICollectionViewLiveShaping;
             liveView.IsLiveSorting = true;
+
         }
 
-        private int _interval = 1000;
+		private int _maxCount = -1;
+
+		public int MaxCount {
+			get { return _maxCount; }
+			set { SetProperty(ref _maxCount, value); }
+		}
+
+		private int _interval = 1000;
 
         public int Interval {
             get { return _interval; }
@@ -103,5 +113,9 @@ namespace QSlice.ViewModels {
             set { SetProperty(ref _totalCPU, value); }
         }
 
-    }
+		public bool IsEnabled {
+			get { return _timer.IsEnabled; }
+			set { _timer.IsEnabled = value; }
+		}
+	}
 }

@@ -3,16 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:QSlice.Views"
+             xmlns:local="clr-namespace:QSlice"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+    </UserControl.Resources>
     <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Processes}" VirtualizingPanel.IsVirtualizing="True" 
-              RowHeight="20" FontSize="11" SelectionMode="Single"
-              GridLinesVisibility="Horizontal">
+              RowHeight="20" FontSize="11" SelectionMode="Single" GridLinesVisibility="Horizontal" >
+        <DataGrid.ItemsPanel>
+            <ItemsPanelTemplate>
+                <local:LimitedItemsGridPresenter MaxCount="{Binding MaxCount}"/>
+            </ItemsPanelTemplate>
+        </DataGrid.ItemsPanel>
         <DataGrid.Columns>
             <DataGridTextColumn Header="ID" Binding="{Binding Process.Id}" Width="50" />
             <DataGridTextColumn Header="Name" Binding="{Binding Process.ProcessName}" Width="150" FontWeight="Bold" />
-            <DataGridTemplateColumn Header="CPU" SortMemberPath="TotalCPU" MinWidth="100" Width="200">
+            <DataGridTemplateColumn Header="CPU" SortMemberPath="TotalCPU" MinWidth="100" Width="250">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <Viewbox Stretch="Fill" StretchDirection="UpOnly" Height="15" >

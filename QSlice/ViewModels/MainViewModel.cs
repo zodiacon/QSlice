@@ -7,13 +7,35 @@ using Prism.Commands;
 using Prism.Mvvm;
 
 namespace QSlice.ViewModels {
-    class MainViewModel : BindableBase {
+	class MainViewModel : BindableBase {
 		public QSliceViewModel QSliceViewModel { get; } = new QSliceViewModel();
 
-        public MainViewModel() {
-            Thread.CurrentThread.Priority = ThreadPriority.Highest;
+		public SelectedShowNumber[] ShowNumbers { get; } = new[] {
+			new SelectedShowNumber { Text = "All", Count = -1 },
+			new SelectedShowNumber { Text = "5", Count = 5 },
+			new SelectedShowNumber { Text = "10", Count = 10 },
+			new SelectedShowNumber { Text = "15", Count = 15 },
+			new SelectedShowNumber { Text = "20", Count = 20 },
+			new SelectedShowNumber { Text = "30", Count = 30 },
+			new SelectedShowNumber { Text = "50", Count = 50 },
+		};
+
+		private SelectedShowNumber _selectedShowNumber;
+
+		public SelectedShowNumber SelectedShowNumber {
+			get { return _selectedShowNumber; }
+			set {
+				if(SetProperty(ref _selectedShowNumber, value)) {
+					QSliceViewModel.MaxCount = value.Count;
+				}
+			}
+		}
+
+		public MainViewModel() {
+			Thread.CurrentThread.Priority = ThreadPriority.Highest;
+			SelectedShowNumber = ShowNumbers[0];
 			LoadSettings();
-        }
+		}
 
 		private void LoadSettings() {
 			var accentName = "Cobalt";
@@ -46,6 +68,15 @@ namespace QSlice.ViewModels {
 			OnPropertyChanged(nameof(CurrentAccent));
 		}, accent => accent != _currentAccent)
 			.ObservesProperty(() => CurrentAccent);
+
+		bool _isRunning = true;
+		public ICommand PlayPauseCommand => new DelegateCommand(() => {
+			_isRunning = !_isRunning;
+			QSliceViewModel.IsEnabled = _isRunning;
+			OnPropertyChanged(nameof(PlayPauseImage));
+		});
+
+		public string PlayPauseImage => _isRunning ? "/images/pause.png" : "/images/play.png";
 
 	}
 }

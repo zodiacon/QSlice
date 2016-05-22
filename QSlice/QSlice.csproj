@@ -71,11 +71,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="LimitedItemsGridPresenter.cs" />
     <Compile Include="Helpers\ProcessEqualityComparer.cs" />
     <Compile Include="ViewModels\AccentViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ProcessViewModel.cs" />
     <Compile Include="ViewModels\QSliceViewModel.cs" />
+    <Compile Include="ViewModels\SelectedShowNumber.cs" />
     <Compile Include="Views\QSliceView.xaml.cs">
       <DependentUpon>QSliceView.xaml</DependentUpon>
     </Compile>
@@ -130,6 +132,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Converters\" />
     <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +140,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\pin_orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\gear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\pause.png" />
+    <Resource Include="Images\play.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

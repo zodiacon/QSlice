@@ -8,9 +8,15 @@
         mc:Ignorable="d" x:Name="This"
         xmlns:view="clr-namespace:QSlice.Views"
         Title="QSlice" MinHeight="300" SizeToContent="Width" ResizeMode="CanResizeWithGrip" Icon="/images/cpu_run.png"
-                   TitleCaps="False" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1">
+                   TitleCaps="False" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1"
+                   >
     <metro:MetroWindow.RightWindowCommands>
         <metro:WindowCommands>
+            <!--<metro:DropDownButton ItemsSource="{Binding Options}">
+                <metro:DropDownButton.Content>
+                    <Image Source="/images/gear.png" />
+                </metro:DropDownButton.Content>
+            </metro:DropDownButton>-->
             <ToggleButton Style="{StaticResource MetroToggleButton}" IsChecked="{Binding Topmost, ElementName=This}" ToolTip="Always On Top">
                 <Image Source="/Images/pin_orange.png" />
             </ToggleButton>
@@ -36,6 +42,13 @@
             <TextBlock Text="Search:" VerticalAlignment="Center"/>
             <TextBox Text="{Binding SearchText, Delay=500, UpdateSourceTrigger=PropertyChanged}" Width="200" metro:TextBoxHelper.ClearTextButton="True" 
                      metro:TextBoxHelper.Watermark="Type to search processes" Margin="6,0,0,0" />
+            <TextBlock Margin="6,0,0,0" Text="Show" VerticalAlignment="Center" />
+            <ComboBox Margin="4,0,0,0" ItemsSource="{Binding ShowNumbers}" SelectedItem="{Binding SelectedShowNumber, Mode=TwoWay}" Width="60" DisplayMemberPath="Text" />
+            <TextBlock Margin="8,0,0,0" Text="Refresh Interval:" VerticalAlignment="Center" />
+            <ComboBox Margin="4,0,0,0" ItemsSource="{Binding RefreshIntervals}" SelectedIndex="{Binding SelectedIntervalIndex, Mode=TwoWay}" Width="60" DisplayMemberPath="Text"/>
+            <Button Margin="6,0,0,0" Command="{Binding PlayPauseCommand}">
+                <Image Source="{Binding PlayPauseImage}" Width="16" Height="16 "/>
+            </Button>
         </StackPanel>
         <view:QSliceView Margin="0,6" Grid.Row="1" DataContext="{Binding QSliceViewModel}" />
         <StatusBar Grid.Row="2" FontSize="12" DataContext="{Binding QSliceViewModel}">
