@@ -9,6 +9,20 @@
         xmlns:view="clr-namespace:QSlice.Views"
         Title="QSlice" MinHeight="300" SizeToContent="Width" ResizeMode="CanResizeWithGrip" Icon="/images/cpu_run.png"
                    TitleCaps="False" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1">
+    <metro:MetroWindow.RightWindowCommands>
+        <metro:WindowCommands>
+            <metro:DropDownButton Content="Accent Color" ItemsSource="{Binding Accents}" >
+                <metro:DropDownButton.ItemContainerStyle>
+                    <Style TargetType="MenuItem" BasedOn="{StaticResource MetroMenuItem}">
+                        <Setter Property="IsCheckable" Value="False" />
+                        <Setter Property="IsChecked" Value="{Binding IsCurrent, Mode=OneWay}" />
+                        <Setter Property="Command" Value="{Binding DataContext.ChangeAccentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}}" />
+                        <Setter Property="CommandParameter" Value="{Binding}" />
+                    </Style>
+                </metro:DropDownButton.ItemContainerStyle>
+            </metro:DropDownButton>
+        </metro:WindowCommands>
+    </metro:MetroWindow.RightWindowCommands>
     <Grid Margin="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

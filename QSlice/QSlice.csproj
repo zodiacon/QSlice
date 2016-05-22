@@ -72,6 +72,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\ProcessEqualityComparer.cs" />
+    <Compile Include="ViewModels\AccentViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ProcessViewModel.cs" />
     <Compile Include="ViewModels\QSliceViewModel.cs" />
@@ -90,6 +91,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resources\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\QSliceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

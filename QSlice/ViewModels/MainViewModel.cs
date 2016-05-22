@@ -1,4 +1,9 @@
-﻿using System.Threading;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Windows.Input;
+using MahApps.Metro;
+using Prism.Commands;
 using Prism.Mvvm;
 
 namespace QSlice.ViewModels {
@@ -7,7 +12,13 @@ namespace QSlice.ViewModels {
 
         public MainViewModel() {
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
+			LoadSettings();
         }
+
+		private void LoadSettings() {
+			var accentName = "Cobalt";
+			ChangeAccentCommand.Execute(Accents.First(acc => acc.Name == accentName));
+		}
 
 		private string _searchText;
 
@@ -19,6 +30,22 @@ namespace QSlice.ViewModels {
 				}
 			}
 		}
+
+		AccentViewModel[] _accents;
+		public AccentViewModel[] Accents => _accents ?? (_accents = ThemeManager.Accents.Select(accent => new AccentViewModel(accent)).ToArray());
+
+		AccentViewModel _currentAccent;
+
+		public AccentViewModel CurrentAccent => _currentAccent;
+
+		public ICommand ChangeAccentCommand => new DelegateCommand<AccentViewModel>(accent => {
+			if(_currentAccent != null)
+				_currentAccent.IsCurrent = false;
+			_currentAccent = accent;
+			accent.IsCurrent = true;
+			OnPropertyChanged(nameof(CurrentAccent));
+		}, accent => accent != _currentAccent)
+			.ObservesProperty(() => CurrentAccent);
 
 	}
 }
