@@ -9,12 +9,7 @@ using System.Windows.Media;
 
 namespace QSlice {
 	class LimitedItemsGridPresenter : DataGridRowsPresenter {
-		protected override Visual GetVisualChild(int index) {
-			if(MaxCount > 0 && index > MaxCount)
-				return null;
-
-			return base.GetVisualChild(index);
-		}
+		protected override int VisualChildrenCount => MaxCount < 0 ? base.VisualChildrenCount : MaxCount;
 
 		public int MaxCount {
 			get { return (int)GetValue(MaxCountProperty); }
