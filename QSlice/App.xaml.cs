@@ -7,20 +7,26 @@ using System.Threading.Tasks;
 using System.Windows;
 using QSlice.ViewModels;
 
-namespace QSlice
-{
+namespace QSlice {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
-    {
-		protected override void OnStartup(StartupEventArgs e) {
-			base.OnStartup(e);
+    public partial class App : Application {
+        MainViewModel _mainViewModel;
 
-			var win = new MainWindow();
-			var vm = new MainViewModel();
-			win.DataContext = vm;
-			win.Show();
-		}
-	}
+        protected override void OnStartup(StartupEventArgs e) {
+            base.OnStartup(e);
+
+            var win = new MainWindow();
+            var vm = new MainViewModel();
+            win.DataContext = _mainViewModel = vm;
+            win.Show();
+        }
+
+        protected override void OnExit(ExitEventArgs e) {
+            _mainViewModel.Close();
+
+            base.OnExit(e);
+        }
+    }
 }
