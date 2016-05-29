@@ -18,7 +18,5 @@ namespace QSlice {
 
 		public static readonly DependencyProperty MaxCountProperty =
 			DependencyProperty.Register(nameof(MaxCount), typeof(int), typeof(LimitedItemsGridPresenter), new PropertyMetadata(-1));
-
-
 	}
 }
