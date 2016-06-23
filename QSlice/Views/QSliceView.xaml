@@ -8,16 +8,16 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
     </UserControl.Resources>
-    <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Processes}" VirtualizingPanel.IsVirtualizing="True" 
-              RowHeight="20" FontSize="11" SelectionMode="Single" GridLinesVisibility="Horizontal" >
-        <DataGrid.ItemsPanel>
+    <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding View}" VirtualizingPanel.IsVirtualizing="True" 
+              RowHeight="20" FontSize="11" SelectionMode="Single" GridLinesVisibility="Horizontal" IsSynchronizedWithCurrentItem="True">
+        <!--<DataGrid.ItemsPanel>
             <ItemsPanelTemplate>
                 <local:LimitedItemsGridPresenter MaxCount="{Binding MaxCount}"/>
             </ItemsPanelTemplate>
-        </DataGrid.ItemsPanel>
+        </DataGrid.ItemsPanel>-->
         <DataGrid.Columns>
-            <DataGridTextColumn Header="ID" Binding="{Binding Process.Id}" Width="50" />
-            <DataGridTextColumn Header="Name" Binding="{Binding Process.ProcessName}" Width="150" FontWeight="Bold" />
+            <DataGridTextColumn Header="ID" Binding="{Binding Id, Mode=OneTime}" Width="50" />
+            <DataGridTextColumn Header="Name" Binding="{Binding ProcessName, Mode=OneTime}" Width="150" FontWeight="Bold" />
             <DataGridTemplateColumn Header="CPU" SortMemberPath="TotalCPU" MinWidth="100" Width="250">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>

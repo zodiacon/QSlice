@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using Prism.Mvvm;
 
 namespace QSlice.ViewModels {
@@ -10,11 +9,15 @@ namespace QSlice.ViewModels {
 
         static int _processorCount = Environment.ProcessorCount;
 
-        public Process Process { get; }
+        public string ProcessName { get; }
+        public uint Id { get; }
 
-        public ProcessViewModel(Process process) {
-            Process = process;
-            _handle = Win32.OpenProcess(Win32.ProcessQueryLimitedProcessInformation, false, process.Id);
+        public ProcessViewModel(uint id, string name) {
+            Id = id;
+            ProcessName = name;
+            _lowerName = name;
+
+            _handle = Win32.OpenProcess(Win32.ProcessQueryLimitedProcessInformation, false, id);
             long dummy;
             Win32.GetProcessTimes(_handle, out dummy, out dummy, out _lastKernelTime, out _lastUserTime);
 
@@ -28,7 +31,7 @@ namespace QSlice.ViewModels {
         public double TotalCPU => _totalTime;
 
         string _lowerName;
-        public string LowerName => _lowerName ?? (_lowerName = Process.ProcessName.ToLower());
+        public string LowerName => _lowerName;
 
         public void Update() {
 
@@ -60,7 +63,9 @@ namespace QSlice.ViewModels {
             Win32.CloseHandle(_handle);
         }
 
+#pragma warning disable CC0029 // Disposables Should Call Suppress Finalize
         public void Dispose() {
+#pragma warning restore CC0029 // Disposables Should Call Suppress Finalize
             Dispose(true);
         }
 

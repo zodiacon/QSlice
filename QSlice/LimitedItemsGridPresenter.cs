@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +13,11 @@ namespace QSlice {
 	class LimitedItemsGridPresenter : DataGridRowsPresenter {
 		protected override int VisualChildrenCount => MaxCount < 0 ? base.VisualChildrenCount : MaxCount;
 
-		public int MaxCount {
+        protected override Visual GetVisualChild(int index) {
+            Debug.WriteLine(index);
+            return base.GetVisualChild(index);
+        }
+        public int MaxCount {
 			get { return (int)GetValue(MaxCountProperty); }
 			set { SetValue(MaxCountProperty, value); }
 		}

@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace QSlice.Helpers {
-	class ProcessEqualityComparer : IEqualityComparer<Process> {
-		public bool Equals(Process x, Process y) => x.Id == y.Id;
-		public int GetHashCode(Process obj) => obj.Id;
+	class ProcessEqualityComparer : IEqualityComparer<ProcessInfo> {
+		public bool Equals(ProcessInfo x, ProcessInfo y) => x.Id == y.Id;
+		public int GetHashCode(ProcessInfo obj) => obj.Id.GetHashCode();
 	}
 }
