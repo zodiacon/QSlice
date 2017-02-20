@@ -14,7 +14,7 @@ namespace QSlice {
     /// </summary>
     public partial class App : Application {
         public App() {
-            LoadAssemblies();
+            //LoadAssemblies();
         }
 
         readonly Dictionary<string, Assembly> _assemblies = new Dictionary<string, Assembly>();

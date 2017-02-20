@@ -1,36 +1,36 @@
 ﻿<UserControl x:Class="QSlice.Views.QSliceView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:QSlice"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-    </UserControl.Resources>
-    <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding View}" VirtualizingPanel.IsVirtualizing="True" 
-              RowHeight="20" FontSize="11" SelectionMode="Single" GridLinesVisibility="Horizontal" IsSynchronizedWithCurrentItem="True">
-        <!--<DataGrid.ItemsPanel>
-            <ItemsPanelTemplate>
-                <local:LimitedItemsGridPresenter MaxCount="{Binding MaxCount}"/>
-            </ItemsPanelTemplate>
-        </DataGrid.ItemsPanel>-->
-        <DataGrid.Columns>
-            <DataGridTextColumn Header="ID" Binding="{Binding Id, Mode=OneTime}" Width="50" />
-            <DataGridTextColumn Header="Name" Binding="{Binding ProcessName, Mode=OneTime}" Width="150" FontWeight="Bold" />
-            <DataGridTemplateColumn Header="CPU" SortMemberPath="TotalCPU" MinWidth="100" Width="250">
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                        <Viewbox Stretch="Fill" StretchDirection="UpOnly" Height="15" >
-                            <Canvas Width="100" Height="15" >
-                                <Rectangle Fill="Red" Width="{Binding KernelCPU}" Height="15" Canvas.Top="2" HorizontalAlignment="Left"/>
-                                <Rectangle Fill="Blue" Width="{Binding UserCPU}" Height="15" Canvas.Top="2" Canvas.Left="{Binding KernelCPU}" HorizontalAlignment="Left"/>
-                            </Canvas>
-                        </Viewbox>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-            <DataGridTextColumn FontWeight="Bold" Binding="{Binding TotalCPU, StringFormat=\{0:N2\}}" Width="40" CanUserResize="False" CanUserSort="False"  />
-        </DataGrid.Columns>
-    </DataGrid>
+				 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+				 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+				 xmlns:local="clr-namespace:QSlice"
+				 mc:Ignorable="d" 
+				 d:DesignHeight="300" d:DesignWidth="300">
+	<UserControl.Resources>
+	</UserControl.Resources>
+	<DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Processes}" VirtualizingPanel.IsVirtualizing="True" 
+				  RowHeight="20" FontSize="11" SelectionMode="Single" GridLinesVisibility="Horizontal" >
+		<!--<DataGrid.ItemsPanel>
+				<ItemsPanelTemplate>
+					 <local:LimitedItemsGridPresenter MaxCount="{Binding MaxCount}"/>
+				</ItemsPanelTemplate>
+		  </DataGrid.ItemsPanel>-->
+		<DataGrid.Columns>
+			<DataGridTextColumn Header="ID" Binding="{Binding Id, Mode=OneTime}" Width="50" />
+			<DataGridTextColumn Header="Name" Binding="{Binding ProcessName, Mode=OneTime}" Width="150" FontWeight="Bold" />
+			<DataGridTemplateColumn Header="CPU" SortMemberPath="TotalCPU" MinWidth="100" Width="250" MaxWidth="400">
+				<DataGridTemplateColumn.CellTemplate>
+					<DataTemplate>
+						<Viewbox Stretch="Fill" StretchDirection="UpOnly" Height="15" >
+							<Canvas Width="100" Height="15" >
+								<Rectangle Fill="Red" Width="{Binding KernelCPU}" Height="15" Canvas.Top="2" HorizontalAlignment="Left"/>
+								<Rectangle Fill="Blue" Width="{Binding UserCPU}" Height="15" Canvas.Top="2" Canvas.Left="{Binding KernelCPU}" HorizontalAlignment="Left"/>
+							</Canvas>
+						</Viewbox>
+					</DataTemplate>
+				</DataGridTemplateColumn.CellTemplate>
+			</DataGridTemplateColumn>
+			<DataGridTextColumn FontWeight="Bold" Binding="{Binding TotalCPU, StringFormat=\{0:N2\}}" Width="40" CanUserResize="False" CanUserSort="False"  />
+		</DataGrid.Columns>
+	</DataGrid>
 </UserControl>
