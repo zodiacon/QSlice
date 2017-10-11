@@ -9,10 +9,11 @@
 				 mc:Ignorable="d" 
 				 d:DesignHeight="300" d:DesignWidth="300">
 	<sf:SfDataGrid AutoGenerateColumns="False" ItemsSource="{Binding Processes}" 
-				  RowHeight="20" FontSize="11" SelectionMode="Single" NavigationMode="Row" x:Name="_grid" LiveDataUpdateMode="AllowDataShaping" AllowResizingColumns="True">
+				  RowHeight="20" FontSize="11" SelectionMode="None" NavigationMode="Row" LiveDataUpdateMode="AllowDataShaping" 
+                  AllowResizingColumns="True" BindableView="{Binding View, Mode=OneWayToSource}">
 		<sf:SfDataGrid.Columns>
 			<sf:GridTextColumn HeaderText="ID" DisplayBinding="{Binding Id, Mode=OneTime}" Width="50" />
-			<sf:GridTextColumn HeaderText="Name" DisplayBinding="{Binding ProcessName, Mode=OneTime}" Width="150" />
+            <sf:GridTextColumn HeaderText="Name" DisplayBinding="{Binding ProcessName, Mode=OneTime}" Width="150" AllowFiltering="True" />
 			<sf:GridTemplateColumn HeaderText="CPU" MappingName="TotalCPU" MinimumWidth="100" Width="250" MaximumWidth="400">
 				<sf:GridTemplateColumn.CellTemplate>
 					<DataTemplate>

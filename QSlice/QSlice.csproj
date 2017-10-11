@@ -50,6 +50,7 @@
     </Reference>
     <Reference Include="Syncfusion.Data.WPF, Version=15.3460.0.33, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.SfGrid.WPF, Version=15.3460.0.33, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.SfSkinManager.WPF, Version=15.3460.0.33, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Shared.Wpf, Version=15.3460.0.33, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="System" />
     <Reference Include="System.Data" />

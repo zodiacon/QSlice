@@ -7,6 +7,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using QSlice.ViewModels;
+using Syncfusion.Windows.Shared;
+using System.Windows.Media;
+using Syncfusion.SfSkinManager;
 
 namespace QSlice {
     /// <summary>
@@ -23,6 +26,9 @@ namespace QSlice {
             var vm = new MainViewModel();
             win.DataContext = _mainViewModel = vm;
             win.Show();
+
+            SfSkinManager.ApplyStylesOnApplication = true;
+            SfSkinManager.SetVisualStyle(win, VisualStyles.Metro);
         }
 
         protected override void OnExit(ExitEventArgs e) {

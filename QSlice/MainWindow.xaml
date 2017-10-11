@@ -12,11 +12,6 @@
                    >
     <metro:MetroWindow.RightWindowCommands>
         <metro:WindowCommands>
-            <!--<metro:DropDownButton ItemsSource="{Binding Options}">
-                <metro:DropDownButton.Content>
-                    <Image Source="/images/gear.png" />
-                </metro:DropDownButton.Content>
-            </metro:DropDownButton>-->
             <ToggleButton Style="{StaticResource MetroToggleButton}" IsChecked="{Binding IsAlwaysOnTop}" ToolTip="Always On Top">
                 <Image Source="/Images/pin_orange.png" />
             </ToggleButton>
@@ -52,7 +47,7 @@
         </StackPanel>
         <view:QSliceView Margin="0,6" Grid.Row="1" DataContext="{Binding QSliceViewModel}" />
         <StatusBar Grid.Row="2" FontSize="12" DataContext="{Binding QSliceViewModel}">
-            <TextBlock Text="{Binding Processes.Count, StringFormat=Processes: \{0\}}" />
+            <TextBlock Text="{Binding View.Count, StringFormat=Processes: \{0\}}" />
             <TextBlock Text="{Binding TotalCPU, StringFormat=Total CPU: \{0:N2\} %}" Margin="10,0,0,0" />
         </StatusBar>
     </Grid>
