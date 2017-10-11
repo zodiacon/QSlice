@@ -126,7 +126,7 @@ namespace QSlice.ViewModels {
             _currentAccent = accent;
             _settings.AccentName = _currentAccent.Name;
             accent.IsCurrent = true;
-            OnPropertyChanged(nameof(CurrentAccent));
+            RaisePropertyChanged(nameof(CurrentAccent));
         }, accent => accent != _currentAccent)
             .ObservesProperty(() => CurrentAccent);
 
@@ -134,7 +134,7 @@ namespace QSlice.ViewModels {
         public ICommand PlayPauseCommand => new DelegateCommand(() => {
             _isRunning = !_isRunning;
             QSliceViewModel.IsEnabled = _isRunning;
-            OnPropertyChanged(nameof(PlayPauseImage));
+            RaisePropertyChanged(nameof(PlayPauseImage));
         });
 
         public string PlayPauseImage => _isRunning ? "/images/pause.png" : "/images/play.png";

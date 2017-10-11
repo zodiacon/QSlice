@@ -25,18 +25,16 @@ namespace QSlice.ViewModels {
 			StartTimer();
 		}
 
-		public ListCollectionView View { get; private set; }
+		public ICollectionView View { get; private set; }
 
 		private void InitProcesses() {
 			_processesRaw = ProcessHelper.EnumProcesses();
 			_processes = new ObservableCollection<ProcessViewModel>(_processesRaw.Select(p => new ProcessViewModel(p.Id, p.Name)));
 
-			View = CollectionViewSource.GetDefaultView(_processes) as ListCollectionView;
-			var liveView = View as ICollectionViewLiveShaping;
-			liveView.IsLiveSorting = liveView.IsLiveFiltering = true;
-		}
+			View = CollectionViewSource.GetDefaultView(_processes) as ICollectionView;
+        }
 
-		private int _maxCount = -1;
+        private int _maxCount = -1;
 
 		public int MaxCount {
 			get { return _maxCount; }
@@ -80,6 +78,8 @@ namespace QSlice.ViewModels {
 						_processes.Add(new ProcessViewModel(p.Id, p.Name));
 					}
 
+					Debug.Assert(_processes.Distinct().Count() == _processes.Count());
+
 					_processesRaw = processes;
 
 					double totalCpu = 0;
@@ -89,10 +89,6 @@ namespace QSlice.ViewModels {
 					}
 
 					TotalCPU = totalCpu;
-
-					// due to bug in live shaping
-
-					View.Refresh();
 
 				}, Dispatcher.CurrentDispatcher);
 			}

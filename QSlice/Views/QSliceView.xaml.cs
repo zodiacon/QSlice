@@ -21,6 +21,10 @@ namespace QSlice.Views {
 	public partial class QSliceView : UserControl {
 		public QSliceView() {
 			InitializeComponent();
+
+            Loaded += delegate {
+
+            };
 		}
 
 	}

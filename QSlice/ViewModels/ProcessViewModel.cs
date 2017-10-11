@@ -12,6 +12,16 @@ namespace QSlice.ViewModels {
 		public string ProcessName { get; }
 		public uint Id { get; }
 
+		public override bool Equals(object obj) {
+            if (obj == null)
+                return false;
+			return Id == ((ProcessViewModel)obj).Id;
+		}
+
+		public override int GetHashCode() {
+			return Id.GetHashCode();
+		}
+
 		public ProcessViewModel(uint id, string name) {
 			Id = id;
 			ProcessName = name;
@@ -52,9 +62,9 @@ namespace QSlice.ViewModels {
 			_lastUserTime = user;
 			_lastUpdate = Environment.TickCount;
 
-			OnPropertyChanged(nameof(TotalCPU));
-			OnPropertyChanged(nameof(KernelCPU));
-			OnPropertyChanged(nameof(UserCPU));
+			RaisePropertyChanged(nameof(TotalCPU));
+			RaisePropertyChanged(nameof(KernelCPU));
+			RaisePropertyChanged(nameof(UserCPU));
 		}
 
 		void Dispose(bool disposing) {
