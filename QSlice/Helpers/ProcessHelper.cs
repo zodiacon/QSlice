@@ -24,7 +24,7 @@ namespace QSlice.Helpers {
 				processes.Add(new ProcessInfo { Id = pe.th32ProcessID, Name = pe.szExeFile });
 			} while(Win32.Process32Next(hSnapshot, ref pe));
 
-			Win32.CloseHandle(hSnapshot);
+			//Win32.CloseHandle(hSnapshot);
 			return processes;
 		}
 	}

@@ -78,7 +78,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\ProcessHelper.cs" />
-    <Compile Include="LimitedItemsGridPresenter.cs" />
     <Compile Include="Helpers\ProcessEqualityComparer.cs" />
     <Compile Include="ProcessInfo.cs" />
     <Compile Include="Serializer.cs" />

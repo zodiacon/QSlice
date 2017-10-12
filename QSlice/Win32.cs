@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -46,12 +47,12 @@ namespace QSlice {
         public static extern bool CloseHandle(IntPtr hProcess);
 
         [DllImport("kernel32")]
-        public static extern IntPtr CreateToolhelp32Snapshot(CreateToolhelpSnapshotFlags flags, uint pid);
+        public static extern SafeFileHandle CreateToolhelp32Snapshot(CreateToolhelpSnapshotFlags flags, uint pid);
 
         [DllImport("kernel32")]
-        public static extern bool Process32First(IntPtr hSnapshot, ref ProcessEntry pe);
+        public static extern bool Process32First(SafeFileHandle hSnapshot, ref ProcessEntry pe);
 
         [DllImport("kernel32")]
-        public static extern bool Process32Next(IntPtr hSnapshot, ref ProcessEntry pe);
+        public static extern bool Process32Next(SafeFileHandle hSnapshot, ref ProcessEntry pe);
     }
 }

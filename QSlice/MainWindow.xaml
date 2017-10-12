@@ -37,8 +37,6 @@
             <TextBlock Text="Search:" VerticalAlignment="Center"/>
             <TextBox Text="{Binding SearchText, Delay=500, UpdateSourceTrigger=PropertyChanged}" Width="200" metro:TextBoxHelper.ClearTextButton="True" 
                      metro:TextBoxHelper.Watermark="Type to search processes" Margin="6,0,0,0" />
-            <!--<TextBlock Margin="6,0,0,0" Text="Show" VerticalAlignment="Center" />
-            <ComboBox Margin="4,0,0,0" ItemsSource="{Binding ShowNumbers}" SelectedItem="{Binding SelectedShowNumber, Mode=TwoWay}" Width="60" DisplayMemberPath="Text" />-->
             <TextBlock Margin="8,0,0,0" Text="Refresh Interval:" VerticalAlignment="Center" />
             <ComboBox Margin="4,0,0,0" ItemsSource="{Binding RefreshIntervals}" SelectedItem="{Binding SelectedInterval, Mode=TwoWay}" Width="70" DisplayMemberPath="Text"/>
             <Button Margin="6,0,0,0" Command="{Binding PlayPauseCommand}">

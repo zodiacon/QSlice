@@ -36,8 +36,6 @@ namespace QSlice.ViewModels {
         private void InitProcesses() {
             _processesRaw = ProcessHelper.EnumProcesses();
             _processes = new ObservableCollection<ProcessViewModel>(_processesRaw.Select(p => new ProcessViewModel(p.Id, p.Name)));
-
-            //View = CollectionViewSource.GetDefaultView(_processes) as ICollectionView;
         }
 
         private int _maxCount = -1;

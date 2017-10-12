@@ -9,12 +9,18 @@
 				 mc:Ignorable="d" 
 				 d:DesignHeight="300" d:DesignWidth="300">
 	<sf:SfDataGrid AutoGenerateColumns="False" ItemsSource="{Binding Processes}" 
-				  RowHeight="20" FontSize="11" SelectionMode="None" NavigationMode="Row" LiveDataUpdateMode="AllowDataShaping" 
+				  RowHeight="18" FontSize="11" SelectionMode="Single" NavigationMode="Row" LiveDataUpdateMode="AllowDataShaping" 
                   AllowResizingColumns="True" BindableView="{Binding View, Mode=OneWayToSource}">
 		<sf:SfDataGrid.Columns>
 			<sf:GridTextColumn HeaderText="ID" DisplayBinding="{Binding Id, Mode=OneTime}" Width="50" />
-            <sf:GridTextColumn HeaderText="Name" DisplayBinding="{Binding ProcessName, Mode=OneTime}" Width="150" AllowFiltering="True" />
-			<sf:GridTemplateColumn HeaderText="CPU" MappingName="TotalCPU" MinimumWidth="100" Width="250" MaximumWidth="400">
+            <sf:GridTextColumn HeaderText="Name" DisplayBinding="{Binding ProcessName, Mode=OneTime}" Width="150" AllowFiltering="True">
+                <sf:GridTextColumn.CellStyle>
+                    <Style TargetType="sf:GridCell">
+                        <Setter Property="FontWeight" Value="Bold" />
+                    </Style>
+                </sf:GridTextColumn.CellStyle>
+            </sf:GridTextColumn>
+            <sf:GridTemplateColumn HeaderText="CPU" MappingName="TotalCPU" MinimumWidth="100" Width="250" MaximumWidth="400">
 				<sf:GridTemplateColumn.CellTemplate>
 					<DataTemplate>
 						<Viewbox Stretch="Fill" StretchDirection="UpOnly" Height="15" >
@@ -26,7 +32,7 @@
 					</DataTemplate>
 				</sf:GridTemplateColumn.CellTemplate>
 			</sf:GridTemplateColumn>
-			<sf:GridTextColumn DisplayBinding="{Binding TotalCPU, StringFormat=\{0:N2\}}" Width="70" AllowResizing="False" AllowSorting="False"  />
+			<sf:GridTextColumn DisplayBinding="{Binding TotalCPU, StringFormat=\{0:N2\}}" Width="90" AllowResizing="False" AllowSorting="True"  />
         </sf:SfDataGrid.Columns>
 	</sf:SfDataGrid>
 </UserControl>
